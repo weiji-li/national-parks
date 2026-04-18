@@ -1,0 +1,174 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.statCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.statValue {
+  font-family: 'Abril Fatface', serif;
+  font-size: 2.2rem;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.statLabel {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.statSub {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.sectionTitle {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.progressWrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+}
+
+.progressBar {
+  height: 8px;
+  background: var(--surface3);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+  border-radius: 4px;
+}
+
+.progressLabel {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--text-muted);
+}
+
+.section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+}
+
+.stateList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.stateRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.stateCode {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  width: 28px;
+  flex-shrink: 0;
+}
+
+.stateBar {
+  flex: 1;
+  height: 6px;
+  background: var(--surface3);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.stateBarFill {
+  height: 100%;
+  background: var(--green);
+  border-radius: 3px;
+}
+
+.stateCount {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--gold);
+  width: 20px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.yearChart {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  height: 120px;
+}
+
+.yearCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+}
+
+.yearCount {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.58rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.yearBarWrap {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  background: var(--surface3);
+  border-radius: 3px 3px 0 0;
+  overflow: hidden;
+}
+
+.yearBar {
+  width: 100%;
+  background: linear-gradient(to top, var(--terra) 0%, var(--terra-bright) 100%);
+  border-radius: 3px 3px 0 0;
+  min-height: 2px;
+}
+
+.yearLabel {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  color: var(--text-muted);
+  margin-top: 0.3rem;
+}

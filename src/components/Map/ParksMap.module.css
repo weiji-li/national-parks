@@ -1,0 +1,124 @@
+/* Leaflet popup wrapper reset */
+:global(.leaflet-popup-content-wrapper) {
+  background: var(--surface) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border-bright) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7) !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+:global(.leaflet-popup-content) {
+  margin: 0 !important;
+  width: 240px !important;
+}
+
+:global(.leaflet-popup-tip-container) {
+  display: none !important;
+}
+
+:global(.leaflet-popup-close-button) {
+  display: none !important;
+}
+
+/* ─── Popup ──────────────────────────────────────────────────────────────── */
+.popupWrap {}
+
+.popup {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.popupImgLink {
+  position: relative;
+  display: block;
+  height: 130px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.popupImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.popup:hover .popupImg {
+  transform: scale(1.04);
+}
+
+.popupImgOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(26, 30, 27, 0.6) 100%);
+}
+
+.popupVisitedTag {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0.6rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.18rem 0.5rem;
+  border-radius: 3px;
+  background: rgba(196, 98, 45, 0.9);
+  color: #f5dfc0;
+}
+
+.popupBody {
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.popupDesig {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.popupName {
+  font-family: 'Abril Fatface', serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--text);
+  text-decoration: none;
+  line-height: 1.2;
+  transition: color 0.15s;
+}
+
+.popupName:hover { color: var(--gold); }
+
+.popupMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.2rem;
+}
+
+.popupState {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.58rem;
+  color: var(--text-muted);
+}
+
+.popupCta {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--gold);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  transition: color 0.15s;
+}
+
+.popupCta:hover { color: var(--text); }

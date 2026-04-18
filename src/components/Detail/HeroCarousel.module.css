@@ -1,0 +1,107 @@
+.hero {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 30%,
+    rgba(19, 22, 20, 0.4) 70%,
+    rgba(19, 22, 20, 0.95) 100%
+  );
+}
+
+.heroPlaceholder {
+  height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at center, var(--surface3) 0%, var(--bg) 100%);
+}
+
+.placeholderText {
+  font-family: 'Abril Fatface', serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  color: var(--text-dim);
+  text-align: center;
+  padding: 2rem;
+}
+
+.navBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(19, 22, 20, 0.7);
+  border: 1px solid var(--border-bright);
+  color: var(--text);
+  font-size: 1.8rem;
+  line-height: 1;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition);
+  z-index: 5;
+}
+
+.navBtn:hover { background: rgba(19, 22, 20, 0.9); }
+.prev { left: 1rem; }
+.next { right: 1rem; }
+
+.dots {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.4rem;
+  z-index: 5;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+  padding: 0;
+}
+
+.dotActive {
+  background: var(--gold) !important;
+  transform: scale(1.4);
+}
+
+.credit {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.75rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.04em;
+  z-index: 5;
+}
+
+@media (max-width: 768px) {
+  .hero, .heroPlaceholder { height: 300px; }
+}

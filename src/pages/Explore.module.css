@@ -1,0 +1,85 @@
+.page {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Map MUST have explicit height — Leaflet won't render otherwise */
+.mapContainer {
+  height: calc(100vh - 122px); /* navbar(60) + filterbar(~62) */
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.25rem;
+}
+
+.loadingState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 6rem 2rem;
+}
+
+.loadingText {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.errorState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 4rem 2rem;
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.errorTitle {
+  font-family: 'Abril Fatface', serif;
+  font-size: 1.5rem;
+  color: var(--terra-bright);
+}
+
+.errorSub {
+  font-family: 'Crimson Pro', serif;
+  color: var(--text-muted);
+}
+
+.errorHint {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+.errorHint code {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  background: var(--surface2);
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  color: var(--gold);
+}
+
+@media (max-width: 640px) {
+  .grid { grid-template-columns: 1fr; padding: 0.75rem; }
+  .list { padding: 0.75rem; }
+  .mapContainer { height: calc(100vh - 160px); }
+}
