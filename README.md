@@ -1,73 +1,41 @@
-# React + TypeScript + Vite
+# National Parks Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A web app for discovering and tracking visits to national parks across the US and Canada.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Explore** — Browse ~470 national parks with grid, list, and interactive map views. Filter by state, search by name or description, and sort by popularity or visitor count.
+- **Park Details** — View images, activities, operating hours, entrance fees, and addresses for each park.
+- **Visit Logging** — Log visits with dates and personal notes. Track multiple visits per park in a timeline view with total visit and unique park counts.
+- **Dashboard** — See your stats and unlock achievement badges based on your visit patterns.
+- **Wishlist** — Save parks you want to visit later.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React 19 + TypeScript + Vite**
+- **Zustand** — state management with local storage persistence
+- **React Router** — client-side routing
+- **Leaflet / React Leaflet** — interactive maps
+- **Framer Motion** — animations
 
-## Expanding the ESLint configuration
+## Data Sources
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- [NPS Developer API](https://developer.nps.gov) — park info, images, activities, hours, and fees for US parks (~471 parks)
+- Parks Canada — Canadian national parks via hardcoded data
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Getting Started
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+1. Clone the repo and install dependencies:
+   ```bash
+   npm install
+   ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+2. Create a `.env` file and add your NPS API key (free at [developer.nps.gov](https://developer.nps.gov)):
+   ```
+   VITE_NPS_API_KEY=your_api_key_here
+   ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+3. Start the dev server:
+   ```bash
+   npm run dev
+   ```
