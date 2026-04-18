@@ -1,0 +1,119 @@
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 4rem;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.4rem;
+}
+
+.title {
+  font-family: 'Abril Fatface', serif;
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: var(--text);
+}
+
+.badgeSummary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.badgeIcons { font-size: 1.4rem; line-height: 1; }
+
+.badgeCount {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+/* ─── Sections ───────────────────────────────────────────────────────────── */
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.sectionHeading {
+  font-family: 'Abril Fatface', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.sectionSub {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* ─── Empty ──────────────────────────────────────────────────────────────── */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  padding: 5rem 2rem;
+}
+
+.emptyIcon { font-size: 3rem; }
+
+.emptyTitle {
+  font-family: 'Abril Fatface', serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.emptyDesc {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.05rem;
+  color: var(--text-dim);
+  max-width: 380px;
+  line-height: 1.6;
+}
+
+.emptyLink {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--gold);
+  text-decoration: none;
+  padding: 0.6rem 1.4rem;
+  border: 1px solid var(--gold-dim);
+  border-radius: var(--radius);
+  transition: all var(--transition);
+  margin-top: 0.5rem;
+}
+
+.emptyLink:hover { background: rgba(201, 168, 76, 0.1); }
+
+@media (max-width: 640px) {
+  .page { padding: 1.5rem 1rem 3rem; }
+}

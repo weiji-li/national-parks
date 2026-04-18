@@ -1,0 +1,154 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 201;
+  width: min(480px, calc(100vw - 2rem));
+  background: var(--surface);
+  border: 1px solid var(--border-bright);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7);
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.3rem;
+}
+
+.title {
+  font-family: 'Abril Fatface', serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0.2rem;
+  transition: color var(--transition);
+  flex-shrink: 0;
+}
+.close:hover { color: var(--text); }
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.fieldLabel {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: -0.25rem;
+}
+
+.input, .textarea {
+  padding: 0.6rem 0.8rem;
+  background: var(--surface2);
+  border: 1px solid var(--border-bright);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: 'Crimson Pro', serif;
+  font-size: 1rem;
+  outline: none;
+  width: 100%;
+  transition: border-color var(--transition);
+}
+
+.input:focus, .textarea:focus { border-color: var(--gold-dim); }
+.textarea { resize: vertical; min-height: 80px; }
+
+/* Date input color fix for dark mode */
+.input::-webkit-calendar-picker-indicator {
+  filter: invert(0.6);
+  cursor: pointer;
+}
+
+.prevVisits {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.75rem;
+  background: var(--surface2);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.dateList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.dateTag {
+  padding: 0.2rem 0.6rem;
+  background: var(--visited-bg);
+  border: 1px solid rgba(139, 69, 19, 0.3);
+  border-radius: 20px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--terra-bright);
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.cancelBtn, .submitBtn {
+  flex: 1;
+  padding: 0.65rem;
+  border-radius: var(--radius);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.cancelBtn {
+  background: var(--surface2);
+  border: 1px solid var(--border-bright);
+  color: var(--text-muted);
+}
+.cancelBtn:hover { color: var(--text); border-color: var(--text-dim); }
+
+.submitBtn {
+  background: var(--gold);
+  border: 1px solid var(--gold);
+  color: var(--bg);
+}
+.submitBtn:hover { background: #d4b55e; }

@@ -1,0 +1,98 @@
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 2rem;
+  height: 60px;
+  background: rgba(19, 22, 20, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: var(--text);
+  flex-shrink: 0;
+}
+
+.brandIcon {
+  color: var(--gold);
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.brandText {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--text);
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.link {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius);
+  transition: color var(--transition), background var(--transition);
+}
+
+.link:hover {
+  color: var(--text);
+  background: var(--surface2);
+}
+
+.active {
+  color: var(--gold) !important;
+  background: rgba(201, 168, 76, 0.1) !important;
+}
+
+.counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+  padding: 0.3rem 0.8rem;
+  background: var(--surface2);
+  border: 1px solid var(--border-bright);
+  border-radius: var(--radius);
+}
+
+.counterNum {
+  font-family: 'Abril Fatface', serif;
+  font-size: 1.1rem;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.counterLabel {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+@media (max-width: 640px) {
+  .nav { padding: 0 1rem; gap: 1rem; }
+  .brandText { display: none; }
+  .link { padding: 0.4rem 0.5rem; font-size: 0.6rem; }
+}

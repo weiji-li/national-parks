@@ -1,0 +1,214 @@
+.page {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 4rem;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.4rem;
+}
+
+.title {
+  font-family: 'Abril Fatface', serif;
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: var(--text);
+}
+
+.summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 0.75rem 1.25rem;
+}
+
+.summaryNum {
+  font-family: 'Abril Fatface', serif;
+  font-size: 1.5rem;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.summaryLbl {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.summaryDivider {
+  color: var(--border-bright);
+  margin: 0 0.25rem;
+  font-size: 1.2rem;
+}
+
+/* ─── Empty state ────────────────────────────────────────────────────────── */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  padding: 5rem 2rem;
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  color: var(--text-dim);
+}
+
+.emptyTitle {
+  font-family: 'Abril Fatface', serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.emptyDesc {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.05rem;
+  color: var(--text-dim);
+  max-width: 360px;
+  line-height: 1.6;
+}
+
+.emptyLink {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--gold);
+  text-decoration: none;
+  padding: 0.6rem 1.4rem;
+  border: 1px solid var(--gold-dim);
+  border-radius: var(--radius);
+  transition: all var(--transition);
+  margin-top: 0.5rem;
+}
+
+.emptyLink:hover { background: rgba(201, 168, 76, 0.1); }
+
+/* ─── Timeline ───────────────────────────────────────────────────────────── */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.entry {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.entryDate {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding-left: 0.5rem;
+}
+
+.entryCard {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--terra);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  transition: border-color var(--transition);
+}
+
+.entryCard:hover { border-color: var(--terra-bright); }
+
+.thumb {
+  width: 80px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  flex-shrink: 0;
+}
+
+.entryInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.entryDesig {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.entryName {
+  font-family: 'Abril Fatface', serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--text);
+  text-decoration: none;
+  line-height: 1.2;
+  transition: color var(--transition);
+}
+
+a.entryName:hover { color: var(--gold); }
+
+.entryState {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--text-muted);
+}
+
+.entryNote {
+  font-family: 'Crimson Pro', serif;
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+  line-height: 1.4;
+}
+
+.removeBtn {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 0.2rem;
+  flex-shrink: 0;
+  transition: color var(--transition);
+  align-self: flex-start;
+}
+
+.removeBtn:hover { color: var(--terra-bright); }
+
+@media (max-width: 640px) {
+  .page { padding: 1.5rem 1rem 3rem; }
+  .thumb { width: 64px; height: 44px; }
+}
