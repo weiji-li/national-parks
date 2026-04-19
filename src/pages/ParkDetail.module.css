@@ -192,6 +192,24 @@
   border-left: 2px solid var(--terra);
 }
 
+/* ─── Highlights ─────────────────────────────────────────────────────────── */
+.highlightWrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.highlight {
+  padding: 0.3rem 0.75rem;
+  background: rgba(201, 168, 76, 0.07);
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  border-radius: 20px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+}
+
 /* ─── Info grid ──────────────────────────────────────────────────────────── */
 .infoGrid {
   display: grid;

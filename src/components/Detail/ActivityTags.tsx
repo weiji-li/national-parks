@@ -1,64 +1,58 @@
-import { useState } from 'react';
 import type { NPSActivity } from '../../types/nps';
 import styles from './ActivityTags.module.css';
 
 const ICON_MAP: [string[], string][] = [
   [['hiking', 'backpacking', 'trail'], '🥾'],
   [['camping', 'backcountry camping'], '⛺'],
-  [['swimming', 'snorkel', 'scuba'], '🏊'],
+  [['swimming', 'snorkel', 'scuba', 'diving'], '🏊'],
   [['fishing', 'fly fishing'], '🎣'],
   [['climbing', 'bouldering', 'rappelling'], '🧗'],
-  [['wildlife', 'animal', 'bear'], '🦌'],
-  [['bird', 'birding'], '🦅'],
+  [['wildlife', 'birding', 'bird watching'], '🦌'],
   [['bike', 'biking', 'cycling', 'mountain biking'], '🚲'],
   [['kayak', 'canoe', 'paddling', 'rafting', 'rowing'], '🛶'],
   [['ski', 'skiing', 'snowshoe', 'cross-country'], '⛷️'],
-  [['snow', 'snowmobile', 'sled'], '❄️'],
-  [['horse', 'equestrian', 'mule'], '🐴'],
-  [['star', 'astronomy', 'night sky'], '✦'],
-  [['photo', 'photography'], '◎'],
+  [['snowmobile', 'sled'], '❄️'],
+  [['horse', 'equestrian'], '🐴'],
   [['boat', 'sailing', 'motor'], '⛵'],
-  [['picnic', 'food'], '☀'],
-  [['visitor center', 'museum', 'exhibit', 'ranger'], '◈'],
-  [['hunting', 'archery'], '◎'],
-  [['off-road', 'atv', 'ohv', 'driving'], '◎'],
-  [['geocach', 'letterbox'], '◉'],
-  [['junior ranger'], '✦'],
-  [['scenic', 'sightseeing', 'road'], '◎'],
+  [['scenic driving', 'scenic'], '🏔️'],
+  [['surfing', 'paddleboard'], '🏄'],
 ];
 
-function getIcon(name: string): string {
-  const lower = name.toLowerCase();
-  for (const [keywords, icon] of ICON_MAP) {
-    if (keywords.some(k => lower.includes(k))) return icon;
-  }
-  return '◈';
-}
-
-const INITIAL_SHOW = 12;
+// Each category: [display name, keywords that match, icon]
+const CATEGORIES: [string, string[], string][] = [
+  ['Hiking',           ['hiking', 'backpack', 'trail'],                '🥾'],
+  ['Wildlife Watching',['wildlife watching', 'wildlife viewing'],      '🦌'],
+  ['Birding',          ['birding', 'bird watching'],                   '🦅'],
+  ['Fishing',          ['fishing'],                                    '🎣'],
+  ['Rock Climbing',    ['climbing', 'bouldering', 'rappelling'],       '🧗'],
+  ['Camping',          ['camping'],                                    '⛺'],
+  ['Swimming',         ['swimming', 'snorkel', 'diving', 'scuba'],     '🏊'],
+  ['Kayaking',         ['kayak', 'canoe', 'rafting', 'paddling'],      '🛶'],
+  ['Skiing',           ['skiing', 'snowshoe', 'cross-country ski'],    '⛷️'],
+  ['Snowmobiling',     ['snowmobile', 'sled'],                         '❄️'],
+  ['Horseback Riding', ['horseback', 'equestrian'],                    '🐴'],
+  ['Scenic Driving',   ['scenic driving'],                             '🏔️'],
+  ['Boating',          ['sailing', 'boating', 'motor'],                '⛵'],
+  ['Surfing',          ['surfing', 'paddleboard'],                     '🏄'],
+];
 
 export default function ActivityTags({ activities }: { activities: NPSActivity[] }) {
-  const [expanded, setExpanded] = useState(false);
   if (!activities?.length) return null;
+  const names = activities.map(a => a.name.toLowerCase());
 
-  const visible = expanded ? activities : activities.slice(0, INITIAL_SHOW);
-  const extra = activities.length - INITIAL_SHOW;
+  const matched = CATEGORIES.filter(([, keywords]) =>
+    keywords.some(k => names.some(n => n.includes(k)))
+  );
+  if (!matched.length) return null;
 
   return (
-    <div>
-      <div className={styles.grid}>
-        {visible.map(a => (
-          <div key={a.id} className={styles.card}>
-            <span className={styles.icon}>{getIcon(a.name)}</span>
-            <span className={styles.label}>{a.name}</span>
-          </div>
-        ))}
-      </div>
-      {extra > 0 && (
-        <button className={styles.expand} onClick={() => setExpanded(e => !e)}>
-          {expanded ? '↑ Show less' : `+ ${extra} more activities`}
-        </button>
-      )}
+    <div className={styles.grid}>
+      {matched.map(([label, , icon]) => (
+        <div key={label} className={styles.card}>
+          <span className={styles.icon}>{icon}</span>
+          <span className={styles.label}>{label}</span>
+        </div>
+      ))}
     </div>
   );
 }
