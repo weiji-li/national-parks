@@ -39,3 +39,29 @@ A web app for discovering and tracking visits to national parks across the US an
    ```bash
    npm run dev
    ```
+
+## Deployment
+
+The site is deployed to **[national-parks.weijil.com](https://national-parks.weijil.com)** via GitHub Pages.
+
+### How it works
+
+Every push to `master` triggers the GitHub Actions workflow (`.github/workflows/deploy.yml`), which builds the app and deploys it to GitHub Pages automatically. No manual steps needed.
+
+### Infrastructure
+
+| Layer | Provider | Detail |
+|---|---|---|
+| Hosting | GitHub Pages | `weiji-li/national-parks` repo, source: GitHub Actions |
+| Custom domain | Netlify DNS | CNAME `national-parks` → `weiji-li.github.io` |
+| Domain registrar | Squarespace | `weijil.com` — nameservers delegate to Netlify DNS |
+
+### If you need to re-configure from scratch
+
+1. **Netlify DNS** — add a CNAME record: `national-parks` → `weiji-li.github.io`
+2. **GitHub Pages** (`Settings → Pages`):
+   - Source: **GitHub Actions**
+   - Custom domain: `national-parks.weijil.com`
+3. The `public/CNAME` file in this repo must contain `national-parks.weijil.com` (already committed)
+
+> **Note:** `weijil.com` uses custom nameservers (Netlify DNS), so DNS changes must be made in Netlify — not in Squarespace.
