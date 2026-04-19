@@ -11,6 +11,31 @@
   height: 320px;
 }
 
+.brochureWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.brochureLabel {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding: 0.5rem 0.75rem 0;
+}
+
+.brochureImg {
+  width: 100%;
+  display: block;
+  object-fit: contain;
+  max-height: 480px;
+  background: var(--surface);
+}
+
 .brochureBtn {
   display: block;
   text-align: center;
