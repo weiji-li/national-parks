@@ -8,6 +8,9 @@ import ActivityTags from '../components/Detail/ActivityTags';
 import AddVisitModal from '../components/Detail/AddVisitModal';
 import styles from './ParkDetail.module.css';
 
+const DAY_KEYS = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'] as const;
+const DAY_ABBR = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
 export default function ParkDetail() {
   const { parkCode } = useParams<{ parkCode: string }>();
   const { parks, loading } = useParks();
@@ -20,25 +23,25 @@ export default function ParkDetail() {
   const visit = useTrackerStore(s => s.getVisit(parkCode!));
   const removeVisitDate = useTrackerStore(s => s.removeVisitDate);
 
-  if (loading) {
-    return (
-      <div className={styles.loading}>
-        <div className="spinner" />
-        <p>Loading park…</p>
-      </div>
-    );
-  }
+  if (loading) return (
+    <div className={styles.loading}>
+      <div className="spinner" />
+      <p>Loading park…</p>
+    </div>
+  );
 
-  if (!park) {
-    return (
-      <div className={styles.notFound}>
-        <h1>Park not found</h1>
-        <Link to="/explore">← Back to explore</Link>
-      </div>
-    );
-  }
+  if (!park) return (
+    <div className={styles.notFound}>
+      <h1>Park not found</h1>
+      <Link to="/explore">← Back to explore</Link>
+    </div>
+  );
 
-  const fee = park.entranceFees?.[0];
+  const todayIdx = new Date().getDay();
+  const hours = park.operatingHours?.[0];
+  const mainFees = park.entranceFees?.filter(f => !f.title.toLowerCase().includes('commercial')) ?? [];
+  const commercialFees = park.entranceFees?.filter(f => f.title.toLowerCase().includes('commercial')) ?? [];
+  const mapUrl = `https://www.nps.gov/${park.parkCode}/planyourvisit/maps.htm`;
 
   return (
     <motion.div
@@ -62,9 +65,9 @@ export default function ParkDetail() {
             <h1 className={styles.title}>{park.fullName}</h1>
             <div className={styles.stateMeta}>
               <span className={styles.mono}>📍 {park.states}</span>
-              {fee && (
+              {mainFees[0] && (
                 <span className={styles.mono}>
-                  💵 {fee.cost === '0.00' ? 'Free entry' : `$${fee.cost} entrance fee`}
+                  {mainFees[0].cost === '0.00' ? '✓ Free entry' : `$${parseFloat(mainFees[0].cost).toFixed(0)} entrance`}
                 </span>
               )}
             </div>
@@ -94,19 +97,11 @@ export default function ParkDetail() {
               {visit.dates.map(d => (
                 <div key={d} className={styles.visitEntry}>
                   <span className={styles.visitDate}>{new Date(d + 'T12:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
-                  <button
-                    className={styles.removeDate}
-                    onClick={() => removeVisitDate(park.parkCode, d)}
-                    title="Remove this visit"
-                  >
-                    ×
-                  </button>
+                  <button className={styles.removeDate} onClick={() => removeVisitDate(park.parkCode, d)} title="Remove this visit">×</button>
                 </div>
               ))}
             </div>
-            {visit.notes && (
-              <p className={styles.visitNote}>"{visit.notes}"</p>
-            )}
+            {visit.notes && <p className={styles.visitNote}>"{visit.notes}"</p>}
           </div>
         )}
 
@@ -124,37 +119,53 @@ export default function ParkDetail() {
           </div>
         )}
 
-        {/* Two-column: hours + fees */}
+        {/* Hours + Fees */}
         <div className={styles.infoGrid}>
-          {park.operatingHours?.[0] && (
+          {hours && (
             <div className={styles.infoCard}>
               <h4 className={styles.sectionTitle}>Hours</h4>
-              <div className={styles.hoursList}>
-                {Object.entries(park.operatingHours[0].standardHours).map(([day, hours]) => (
-                  <div key={day} className={styles.hoursRow}>
-                    <span className={styles.day}>{day.slice(0, 3)}</span>
-                    <span className={styles.hours}>{hours}</span>
-                  </div>
-                ))}
+              <div className={styles.hoursGrid}>
+                {DAY_KEYS.map((key, i) => {
+                  const h = hours.standardHours[key];
+                  const isToday = i === todayIdx;
+                  const isClosed = h?.toLowerCase() === 'closed';
+                  const isAllDay = h?.toLowerCase().includes('24') || h?.toLowerCase().includes('all day');
+                  return (
+                    <div key={key} className={`${styles.hoursRow} ${isToday ? styles.hoursToday : ''}`}>
+                      <span className={styles.day}>{DAY_ABBR[i]}</span>
+                      <span className={`${styles.hours} ${isClosed ? styles.hoursClosed : ''} ${isAllDay ? styles.hoursAllDay : ''}`}>
+                        {isAllDay ? '24 hrs' : h || '—'}
+                      </span>
+                      {isToday && <span className={styles.todayDot} />}
+                    </div>
+                  );
+                })}
               </div>
-              {park.operatingHours[0].description && (
-                <p className={styles.hoursNote}>{park.operatingHours[0].description.slice(0, 200)}</p>
+              {hours.description && (
+                <p className={styles.hoursNote}>{hours.description.slice(0, 180)}{hours.description.length > 180 ? '…' : ''}</p>
               )}
             </div>
           )}
 
           <div className={styles.infoCard}>
             <h4 className={styles.sectionTitle}>Entrance fees</h4>
-            {park.entranceFees?.length > 0 ? (
-              park.entranceFees.map((f, i) => (
-                <div key={i} className={styles.feeRow}>
-                  <div className={styles.feeTitle}>{f.title}</div>
-                  <div className={styles.feeAmount}>
-                    {f.cost === '0.00' ? 'Free' : `$${parseFloat(f.cost).toFixed(0)}`}
+            {mainFees.length > 0 ? (
+              <div className={styles.feeList}>
+                {mainFees.map((f, i) => (
+                  <div key={i} className={styles.feeCard}>
+                    <div className={styles.feeCardTop}>
+                      <span className={styles.feeTitle}>{f.title}</span>
+                      <span className={styles.feeAmount}>
+                        {f.cost === '0.00' ? <span className={styles.feeFree}>FREE</span> : `$${parseFloat(f.cost).toFixed(0)}`}
+                      </span>
+                    </div>
+                    {f.description && <p className={styles.feeDesc}>{f.description.slice(0, 100)}{f.description.length > 100 ? '…' : ''}</p>}
                   </div>
-                  <div className={styles.feeDesc}>{f.description?.slice(0, 120)}</div>
-                </div>
-              ))
+                ))}
+                {commercialFees.length > 0 && (
+                  <p className={styles.feeCommercial}>+ {commercialFees.length} commercial rate{commercialFees.length > 1 ? 's' : ''}</p>
+                )}
+              </div>
             ) : (
               <p className={styles.feeDesc}>No entrance fee information available.</p>
             )}
@@ -169,14 +180,25 @@ export default function ParkDetail() {
           </div>
         )}
 
-        {/* External link */}
-        {park.url && (
-          <div className={styles.externalLink}>
-            <a href={park.url} target="_blank" rel="noopener noreferrer" className={styles.npsLink}>
-              View on NPS.gov →
+        {/* Bottom row: NPS link + Park map */}
+        <div className={styles.linkRow}>
+          {park.url && (
+            <a href={park.url} target="_blank" rel="noopener noreferrer" className={styles.linkCard}>
+              <span className={styles.linkCardIcon}>↗</span>
+              <div>
+                <div className={styles.linkCardLabel}>Official website</div>
+                <div className={styles.linkCardSub}>NPS.gov</div>
+              </div>
             </a>
-          </div>
-        )}
+          )}
+          <a href={mapUrl} target="_blank" rel="noopener noreferrer" className={styles.linkCard}>
+            <span className={styles.linkCardIcon}>◎</span>
+            <div>
+              <div className={styles.linkCardLabel}>Park map</div>
+              <div className={styles.linkCardSub}>Brochure & trail maps</div>
+            </div>
+          </a>
+        </div>
       </div>
 
       <AddVisitModal
