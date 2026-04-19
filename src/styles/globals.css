@@ -2,21 +2,21 @@
 
 /* ─── Custom Properties ──────────────────────────────────────────────────── */
 :root {
-  --bg:           #131614;
-  --surface:      #1a1e1b;
-  --surface2:     #222721;
-  --surface3:     #2a302a;
+  --bg:           #1e2b1c;
+  --surface:      #263322;
+  --surface2:     #2e3d29;
+  --surface3:     #374830;
   --gold:         #c9a84c;
   --gold-dim:     #8a6e2a;
   --green:        #3d6b4f;
   --green-bright: #5a9e73;
   --terra:        #8b4513;
   --terra-bright: #c4622d;
-  --text:         #ddd8c4;
-  --text-muted:   #7a7568;
-  --text-dim:     #4a4740;
-  --border:       #2a2f2b;
-  --border-bright:#3a4038;
+  --text:         #e8e4d4;
+  --text-muted:   #a8a298;
+  --text-dim:     #706a62;
+  --border:       #30362f;
+  --border-bright:#484e46;
   --radius:       6px;
   --radius-lg:    12px;
   --transition:   0.2s ease;
@@ -102,7 +102,7 @@ a:hover { color: var(--text); }
 
 /* ─── Leaflet overrides ──────────────────────────────────────────────────── */
 .leaflet-container {
-  background: #0d0f0d !important;
+  background: var(--surface) !important;
   font-family: 'Space Mono', monospace !important;
 }
 
@@ -139,3 +139,12 @@ a:hover { color: var(--text); }
   border-radius: 4px 0 0 0 !important;
 }
 .leaflet-control-attribution a { color: var(--text-muted) !important; }
+
+@media (max-width: 640px) {
+  .leaflet-control-zoom a {
+    width: 40px !important;
+    height: 40px !important;
+    line-height: 40px !important;
+    font-size: 18px !important;
+  }
+}
