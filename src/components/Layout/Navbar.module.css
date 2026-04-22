@@ -7,7 +7,7 @@
   gap: 2rem;
   padding: 0 2rem;
   height: 60px;
-  background: rgba(19, 22, 20, 0.92);
+  background: rgba(30, 43, 28, 0.92);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
 }
@@ -112,7 +112,7 @@
   position: sticky;
   top: 60px;
   z-index: 99;
-  background: rgba(19, 22, 20, 0.97);
+  background: rgba(30, 43, 28, 0.97);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   padding: 0.5rem 1rem;

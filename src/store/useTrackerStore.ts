@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { Visit } from '../types/nps';
+import seedData from '../data/myParks.json';
 
 interface TrackerStore {
   visits: Record<string, Visit>;
@@ -90,6 +91,25 @@ export const useTrackerStore = create<TrackerStore>()(
     }),
     {
       name: 'national-parks-tracker',
+      // Merge committed seed data (myParks.json) with whatever is in localStorage.
+      // localStorage wins per-park so live edits stick, but the JSON acts as a
+      // baseline that always shows up on fresh browsers / other devices.
+      merge: (persisted, current) => {
+        const p = (persisted ?? {}) as Partial<TrackerStore>;
+        return {
+          ...current,
+          visits: {
+            ...(seedData.visits as Record<string, Visit>),
+            ...(p.visits ?? {}),
+          },
+          wishlist: [
+            ...new Set([
+              ...(seedData.wishlist as string[]),
+              ...(p.wishlist ?? []),
+            ]),
+          ],
+        };
+      },
     }
   )
 );
