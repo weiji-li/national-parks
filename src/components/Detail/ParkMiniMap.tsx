@@ -25,21 +25,36 @@ interface BrochureImage {
   title: string;
 }
 
+const BROCHURE_CACHE_PREFIX = 'nps_brochure_v1_';
+const BROCHURE_CACHE_TTL = 1000 * 60 * 60 * 24 * 30; // 30 days
+
 async function fetchBrochureImage(parkCode: string): Promise<BrochureImage | null> {
+  const cacheKey = BROCHURE_CACHE_PREFIX + parkCode;
+  try {
+    const raw = localStorage.getItem(cacheKey);
+    if (raw) {
+      const { data, timestamp } = JSON.parse(raw);
+      if (Date.now() - timestamp < BROCHURE_CACHE_TTL) return data;
+      localStorage.removeItem(cacheKey);
+    }
+  } catch { /* ignore */ }
+
   try {
     const res = await fetch(
       `https://developer.nps.gov/api/v1/multimedia/galleries?parkCode=${parkCode}&api_key=${import.meta.env.VITE_NPS_API_KEY || 'DEMO_KEY'}&limit=50`
     );
     const data = await res.json();
     const galleries: { title: string; images?: { url: string; title: string }[] }[] = data.data ?? [];
+    let result: BrochureImage | null = null;
     for (const gallery of galleries) {
       const lower = gallery.title?.toLowerCase() ?? '';
       if (lower.includes('map') || lower.includes('brochure') || lower.includes('unigrid') || lower.includes('carto')) {
         const img = gallery.images?.[0];
-        if (img?.url) return { url: img.url, title: gallery.title };
+        if (img?.url) { result = { url: img.url, title: gallery.title }; break; }
       }
     }
-    return null;
+    try { localStorage.setItem(cacheKey, JSON.stringify({ data: result, timestamp: Date.now() })); } catch { /* ignore */ }
+    return result;
   } catch {
     return null;
   }
