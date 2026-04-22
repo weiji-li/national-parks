@@ -2,8 +2,8 @@ import type { NPSApiResponse, NPSPark } from '../types/nps';
 
 const BASE_URL = 'https://developer.nps.gov/api/v1';
 const API_KEY = import.meta.env.VITE_NPS_API_KEY || 'DEMO_KEY';
-const CACHE_KEY = 'nps_parks_v2';
-const CACHE_TTL = 1000 * 60 * 60 * 12; // 12 hours
+const CACHE_KEY = 'nps_parks_v3';
+const CACHE_TTL = 1000 * 60 * 60 * 24 * 7; // 7 days
 
 interface CacheEntry {
   data: NPSPark[];
@@ -12,11 +12,11 @@ interface CacheEntry {
 
 function getCache(): NPSPark[] | null {
   try {
-    const raw = sessionStorage.getItem(CACHE_KEY);
+    const raw = localStorage.getItem(CACHE_KEY);
     if (!raw) return null;
     const entry: CacheEntry = JSON.parse(raw);
     if (Date.now() - entry.timestamp > CACHE_TTL) {
-      sessionStorage.removeItem(CACHE_KEY);
+      localStorage.removeItem(CACHE_KEY);
       return null;
     }
     return entry.data;
@@ -28,9 +28,9 @@ function getCache(): NPSPark[] | null {
 function setCache(data: NPSPark[]): void {
   try {
     const entry: CacheEntry = { data, timestamp: Date.now() };
-    sessionStorage.setItem(CACHE_KEY, JSON.stringify(entry));
+    localStorage.setItem(CACHE_KEY, JSON.stringify(entry));
   } catch {
-    // sessionStorage full — skip caching silently
+    // localStorage full — skip caching silently
   }
 }
 
