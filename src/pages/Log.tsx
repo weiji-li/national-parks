@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useTrackerStore } from '../store/useTrackerStore';
@@ -9,7 +9,17 @@ import styles from './Log.module.css';
 export default function Log() {
   const { parks } = useParks();
   const visits = useTrackerStore(s => s.visits);
+  const wishlist = useTrackerStore(s => s.wishlist);
   const removeVisitDate = useTrackerStore(s => s.removeVisitDate);
+  const [copied, setCopied] = useState(false);
+
+  function handleExport() {
+    const json = JSON.stringify({ visits, wishlist }, null, 2);
+    navigator.clipboard.writeText(json).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    });
+  }
 
   const parksByCode = useMemo(() => new Map(parks.map(p => [p.parkCode, p])), [parks]);
 
@@ -39,15 +49,20 @@ export default function Log() {
           <h4 className={styles.eyebrow}>Personal record</h4>
           <h1 className={styles.title}>My Visit Log</h1>
         </div>
-        {visitedCount > 0 && (
-          <div className={styles.summary}>
-            <span className={styles.summaryNum}>{allVisits.length}</span>
-            <span className={styles.summaryLbl}>total visits</span>
-            <span className={styles.summaryDivider}>·</span>
-            <span className={styles.summaryNum}>{visitedCount}</span>
-            <span className={styles.summaryLbl}>unique parks</span>
-          </div>
-        )}
+        <div className={styles.headerRight}>
+          {visitedCount > 0 && (
+            <div className={styles.summary}>
+              <span className={styles.summaryNum}>{allVisits.length}</span>
+              <span className={styles.summaryLbl}>total visits</span>
+              <span className={styles.summaryDivider}>·</span>
+              <span className={styles.summaryNum}>{visitedCount}</span>
+              <span className={styles.summaryLbl}>unique parks</span>
+            </div>
+          )}
+          <button className={styles.exportBtn} onClick={handleExport} title="Copy data as JSON to paste into src/data/myParks.json">
+            {copied ? '✓ Copied!' : '↑ Export to repo'}
+          </button>
+        </div>
       </div>
 
       {allVisits.length === 0 ? (
